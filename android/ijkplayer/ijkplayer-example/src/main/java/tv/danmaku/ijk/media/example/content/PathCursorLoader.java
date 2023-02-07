@@ -20,12 +20,17 @@ package tv.danmaku.ijk.media.example.content;
 import android.content.Context;
 import android.database.Cursor;
 import android.os.Environment;
-import android.support.v4.content.AsyncTaskLoader;
+
+import androidx.loader.content.AsyncTaskLoader;
 
 import java.io.File;
+import java.io.FilenameFilter;
+
+import tv.danmaku.ijk.media.example.application.Settings;
 
 public class PathCursorLoader extends AsyncTaskLoader<Cursor> {
     private File mPath;
+    private Settings mSettings;
 
     public PathCursorLoader(Context context) {
         this(context, Environment.getExternalStorageDirectory());
@@ -34,6 +39,7 @@ public class PathCursorLoader extends AsyncTaskLoader<Cursor> {
     public PathCursorLoader(Context context, String path) {
         super(context);
         mPath = new File(path).getAbsoluteFile();
+        mSettings = new Settings(context);
     }
 
     public PathCursorLoader(Context context, File path) {
@@ -43,8 +49,13 @@ public class PathCursorLoader extends AsyncTaskLoader<Cursor> {
 
     @Override
     public Cursor loadInBackground() {
-        File[] file_list = mPath.listFiles();
+        FilenameFilter filter = (file, s) -> mSettings.getIsShowHiddenFile() || !isHiddenName(s);
+        File[] file_list = mPath.listFiles(filter);
         return new PathCursor(mPath, file_list);
+    }
+
+    private boolean isHiddenName(String name) {
+        return name.startsWith(".") && !name.equals("..");
     }
 
     @Override

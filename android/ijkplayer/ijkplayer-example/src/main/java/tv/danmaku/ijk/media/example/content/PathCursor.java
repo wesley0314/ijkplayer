@@ -18,8 +18,10 @@
 package tv.danmaku.ijk.media.example.content;
 
 import android.database.AbstractCursor;
+import android.os.Environment;
 import android.provider.BaseColumns;
 import android.text.TextUtils;
+import android.util.Log;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -45,7 +47,7 @@ public class PathCursor extends AbstractCursor {
     public static final int CI_IS_VIDEO = 4;
 
     PathCursor(File parentDirectory, File[] fileList) {
-        if (parentDirectory.getParent() != null) {
+        if (parentDirectory.getParent() != null && !isRootDir(parentDirectory.getAbsolutePath())) {
             FileItem parentFile = new FileItem(new File(parentDirectory, ".."));
             parentFile.isDirectory = true;
             mFileList.add(parentFile);
@@ -134,6 +136,10 @@ public class PathCursor extends AbstractCursor {
     static {
         sMediaExtSet.add("flv");
         sMediaExtSet.add("mp4");
+    }
+
+    private static boolean isRootDir(String path) {
+        return path.equals(Environment.getExternalStorageDirectory().getAbsolutePath());
     }
 
     private class FileItem {

@@ -19,6 +19,7 @@ package tv.danmaku.ijk.media.example.application;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.Environment;
 import android.preference.PreferenceManager;
 
 import tv.danmaku.ijk.media.example.R;
@@ -104,11 +105,16 @@ public class Settings {
 
     public String getLastDirectory() {
         String key = mAppContext.getString(R.string.pref_key_last_directory);
-        return mSharedPreferences.getString(key, "/");
+        return mSharedPreferences.getString(key, Environment.getExternalStorageDirectory().getAbsolutePath());
     }
 
     public void setLastDirectory(String path) {
         String key = mAppContext.getString(R.string.pref_key_last_directory);
         mSharedPreferences.edit().putString(key, path).apply();
+    }
+
+    public boolean getIsShowHiddenFile() {
+        String key = mAppContext.getString(R.string.pref_key_show_hidden_file);
+        return mSharedPreferences.getBoolean(key, true);
     }
 }
