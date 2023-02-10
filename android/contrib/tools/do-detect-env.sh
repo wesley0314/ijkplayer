@@ -60,7 +60,7 @@ case "$IJK_NDK_REL" in
                 ;;
             esac
         else
-            echo "You need the NDKr10e or later"
+            echo "You need the NDK21 or later"
             exit 1
         fi
     ;;
@@ -68,17 +68,17 @@ case "$IJK_NDK_REL" in
         IJK_NDK_REL=$(grep -o '^Pkg\.Revision.*=[0-9]*.*' $ANDROID_NDK/source.properties 2>/dev/null | sed 's/[[:space:]]*//g' | cut -d "=" -f 2)
         echo "IJK_NDK_REL=$IJK_NDK_REL"
         case "$IJK_NDK_REL" in
-            11*|12*|13*|14*)
+            11*|12*|13*|14*|21*)
                 if test -d ${ANDROID_NDK}/toolchains/arm-linux-androideabi-4.9
                 then
                     echo "NDKr$IJK_NDK_REL detected"
                 else
-                    echo "You need the NDKr10e or later"
+                    echo "You need the NDK21 or later"
                     exit 1
                 fi
             ;;
             *)
-                echo "You need the NDKr10e or later"
+                echo "You need the NDK21 or later"
                 exit 1
             ;;
         esac
