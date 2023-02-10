@@ -126,7 +126,7 @@ else
 fi
 
 #工具链位置
-FF_TOOLCHAIN_PATH=$ANDROID_NDK/toolchain/$FF_TOOLCHAIN_NAME/prebuilt/linux-x86_64
+FF_TOOLCHAIN_PATH=$ANDROID_NDK/toolchain/$FF_TOOLCHAIN_NAME/prebuilt/$(uname -s)-x86_64
 echo "-> 使用位于 $FF_TOOLCHAIN_PATH  的工具链"
 #构建输出文件夹(就是生成库的位置)
 FF_PREFIX="$FF_BUILD_ROOT/build/$FF_BUILD_NAME/output"
@@ -140,7 +140,7 @@ echo ""
 echo "--------------------"
 echo "[*] 配置openssl"
 echo "--------------------"
-export PATH=$ANDROID_NDK/toolchains/llvm/prebuilt/linux-x86_64/bin:$PATH
+export PATH=$ANDROID_NDK/toolchains/llvm/prebuilt/$(uname -s)-x86_64/bin:$PATH
 export PATH=$FF_TOOLCHAIN_PATH/bin:$PATH
 echo $PATH
 export COMMON_FF_CFG_FLAGS=

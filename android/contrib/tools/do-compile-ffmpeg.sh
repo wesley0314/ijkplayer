@@ -166,7 +166,7 @@ if [ ! -d $TARGET_SOURCE ]; then
     exit 1
 fi
 
-TARGET_TOOLCHAIN_PATH=$ANDROID_NDK/toolchains/llvm/prebuilt/linux-x86_64
+TARGET_TOOLCHAIN_PATH=$ANDROID_NDK/toolchains/llvm/prebuilt/$(uname -s)-x86_64
 
 TARGET_SYSROOT=$TARGET_TOOLCHAIN_PATH/sysroot
 TARGET_PREFIX=$TARGET_BUILD_ROOT/build/$TARGET_BUILD_NAME/output
