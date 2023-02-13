@@ -73,6 +73,18 @@ TARGET_MAKE_TOOLCHAIN_FLAGS=$IJK_MAKE_TOOLCHAIN_FLAGS
 TARGET_MAKE_FLAGS=$IJK_MAKE_FLAG
 TARGET_GCC_VER=$IJK_GCC_VER
 TARGET_GCC_64_VER=$IJK_GCC_64_VER
+PLATFORM=linux
+case "$(uname -s)" in
+    Darwin)
+        PLATFORM=darwin
+    ;;
+    CYGWIN_NT-*)
+        PLATFORM=windows
+    ;;
+    Linux)
+        PLATFORM=linux
+    ;;
+esac
 
 
 #----- armv7a begin -----
@@ -166,7 +178,7 @@ if [ ! -d $TARGET_SOURCE ]; then
     exit 1
 fi
 
-TARGET_TOOLCHAIN_PATH=$ANDROID_NDK/toolchains/llvm/prebuilt/$(uname -s)-x86_64
+TARGET_TOOLCHAIN_PATH=$ANDROID_NDK/toolchains/llvm/prebuilt/$PLATFORM-x86_64
 
 TARGET_SYSROOT=$TARGET_TOOLCHAIN_PATH/sysroot
 TARGET_PREFIX=$TARGET_BUILD_ROOT/build/$TARGET_BUILD_NAME/output
