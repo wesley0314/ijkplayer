@@ -2,14 +2,13 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
-    buildToolsVersion rootProject.ext.buildToolsVersion
 
     lintOptions {
         abortOnError false
     }
     defaultConfig {
         applicationId "tv.danmaku.ijk.media.example"
-        minSdkVersion 21
+        minSdkVersion rootProject.ext.miniSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode rootProject.ext.versionCode
         versionName rootProject.ext.versionName
